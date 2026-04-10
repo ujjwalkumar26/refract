@@ -1,0 +1,53 @@
+{
+  "name": "mini_corpus",
+  "description": "A small embedded dataset for refract examples and testing. Contains 20 documents spanning Python programming, machine learning, and information retrieval.",
+  "documents": [
+    "Sort a Python list using the sorted() built-in function. The sorted function returns a new list.",
+    "Neural networks learn hierarchical representations of data through backpropagation.",
+    "Retrieve relevant documents from a large corpus using inverted indices and ranking algorithms.",
+    "Use cosine similarity to measure vector closeness in high-dimensional embedding spaces.",
+    "The quick brown fox jumps over the lazy dog. This sentence contains every letter of the alphabet.",
+    "Machine learning models require labeled training data and significant compute resources.",
+    "Python decorators are functions that modify the behavior of other functions at definition time.",
+    "Information retrieval systems rank documents by relevance using term frequency and inverse document frequency.",
+    "Deep learning architectures include Convolutional Neural Networks, Recurrent Neural Networks, and Transformers.",
+    "Binary search has O(log n) time complexity and requires a sorted input array.",
+    "Natural language processing enables computers to understand, interpret, and generate human language.",
+    "Vector databases store and index high-dimensional embeddings for fast approximate nearest neighbor search.",
+    "The PageRank algorithm assigns importance scores to web pages based on the link structure of the web.",
+    "Gradient descent optimizes model parameters by iteratively moving in the direction of steepest descent.",
+    "Tokenization splits text into individual tokens such as words, subwords, or characters.",
+    "Attention mechanisms allow neural networks to focus on the most relevant parts of an input sequence.",
+    "Python list comprehensions provide a concise way to create lists based on existing sequences.",
+    "Semantic search understands the meaning behind queries rather than matching exact keywords.",
+    "Cross-encoder rerankers score query-document pairs jointly for high-quality relevance estimation.",
+    "Embeddings map discrete objects like words or documents into continuous vector spaces."
+  ],
+  "sample_queries": [
+    {
+      "query": "how to sort a list in Python",
+      "expected_relevant": [0, 16],
+      "query_type": "natural_language"
+    },
+    {
+      "query": "neural network architecture",
+      "expected_relevant": [1, 8, 15],
+      "query_type": "keyword"
+    },
+    {
+      "query": "def binary_search(arr, target):",
+      "expected_relevant": [9],
+      "query_type": "code"
+    },
+    {
+      "query": "what is the difference between semantic search and keyword search",
+      "expected_relevant": [17, 7, 2],
+      "query_type": "natural_language"
+    },
+    {
+      "query": "vector similarity embedding",
+      "expected_relevant": [3, 11, 19],
+      "query_type": "keyword"
+    }
+  ]
+}
