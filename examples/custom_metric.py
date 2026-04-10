@@ -13,6 +13,7 @@ from refract.metrics import BaseMetric
 
 # ── Define a custom metric ──────────────────────────────────────────────────
 
+
 class WeightedDotProduct(BaseMetric):
     """A custom metric that computes a weighted dot product.
 

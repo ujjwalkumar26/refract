@@ -114,9 +114,7 @@ class MahalanobisMetric(BaseMetric):
             RuntimeError: If ``fit()`` has not been called.
         """
         if not self._fitted or self._cov_inv is None:
-            raise RuntimeError(
-                "MahalanobisMetric.fit(corpus) must be called before scoring."
-            )
+            raise RuntimeError("MahalanobisMetric.fit(corpus) must be called before scoring.")
         diffs = candidates - query_vec[np.newaxis, :]
         # (n, dim) @ (dim, dim) → (n, dim), then element-wise multiply and sum
         # Equivalent to: [diff @ cov_inv @ diff for each diff]

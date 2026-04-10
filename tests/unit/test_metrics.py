@@ -38,11 +38,15 @@ class TestCosineMetric:
         score = self.metric.score(zero_vector, vec)
         assert score == 0.0
 
-    def test_batch_score_shape(self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray) -> None:
+    def test_batch_score_shape(
+        self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray
+    ) -> None:
         scores = self.metric.batch_score(sample_query_vec, sample_vectors)
         assert scores.shape == (10,)
 
-    def test_batch_matches_single(self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray) -> None:
+    def test_batch_matches_single(
+        self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray
+    ) -> None:
         batch = self.metric.batch_score(sample_query_vec, sample_vectors)
         for i in range(len(sample_vectors)):
             single = self.metric.score(sample_query_vec, sample_vectors[i])
@@ -69,7 +73,9 @@ class TestEuclideanMetric:
         score = self.metric.score(v1, v2)
         assert score < 0.01
 
-    def test_batch_score_shape(self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray) -> None:
+    def test_batch_score_shape(
+        self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray
+    ) -> None:
         scores = self.metric.batch_score(sample_query_vec, sample_vectors)
         assert scores.shape == (10,)
 
@@ -97,7 +103,9 @@ class TestMahalanobisMetric:
         score = metric.score(sample_vectors[0], sample_vectors[0])
         assert abs(score - 1.0) < 1e-6
 
-    def test_batch_score_shape(self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray) -> None:
+    def test_batch_score_shape(
+        self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray
+    ) -> None:
         metric = MahalanobisMetric()
         metric.fit(sample_vectors)
         scores = metric.batch_score(sample_query_vec, sample_vectors)

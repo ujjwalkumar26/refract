@@ -85,7 +85,5 @@ class CompositeRouter(BaseRouter):
         return {k: v / total for k, v in combined.items()}
 
     def __repr__(self) -> str:
-        sub = ", ".join(
-            f"({r.name}, {w:.2f})" for r, w in self._normalized
-        )
+        sub = ", ".join(f"({r.name}, {w:.2f})" for r, w in self._normalized)
         return f"CompositeRouter([{sub}])"

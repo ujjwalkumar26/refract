@@ -22,8 +22,12 @@ class TestQueryProfile:
 
     def test_repr(self) -> None:
         qp = QueryProfile(
-            raw=None, vector=None, query_type="natural_language",
-            token_count=0, embedding_norm=0.0, entropy=0.0,
+            raw=None,
+            vector=None,
+            query_type="natural_language",
+            token_count=0,
+            embedding_norm=0.0,
+            entropy=0.0,
         )
         assert "natural_language" in repr(qp)
 
@@ -31,9 +35,12 @@ class TestQueryProfile:
 class TestSpaceProfile:
     def test_creation(self) -> None:
         sp = SpaceProfile(
-            n_candidates=100, embedding_dim=384,
-            variance=0.1, anisotropy=5.0,
-            density="medium", score_spread=0.05,
+            n_candidates=100,
+            embedding_dim=384,
+            variance=0.1,
+            anisotropy=5.0,
+            density="medium",
+            score_spread=0.05,
         )
         assert sp.density == "medium"
         assert sp.n_candidates == 100
@@ -42,8 +49,10 @@ class TestSpaceProfile:
 class TestMetricScore:
     def test_creation(self) -> None:
         ms = MetricScore(
-            metric_name="cosine", raw_score=0.9,
-            weight=0.5, weighted_score=0.45,
+            metric_name="cosine",
+            raw_score=0.9,
+            weight=0.5,
+            weighted_score=0.45,
         )
         assert ms.weighted_score == 0.45
 

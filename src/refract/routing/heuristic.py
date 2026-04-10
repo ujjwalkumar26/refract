@@ -24,18 +24,33 @@ _RuleKey = tuple[_QueryType, _Density]
 
 DEFAULT_RULES: dict[_RuleKey, dict[str, float]] = {
     # (query_type, density) → {metric: weight}
-    ("keyword", "sparse"):           {"cosine": 0.50, "bm25": 0.40, "euclidean": 0.10},
-    ("keyword", "medium"):           {"cosine": 0.45, "bm25": 0.30, "mahalanobis": 0.15, "euclidean": 0.10},
-    ("keyword", "dense"):            {"cosine": 0.30, "bm25": 0.20, "mahalanobis": 0.40, "euclidean": 0.10},
-    ("natural_language", "sparse"):  {"cosine": 0.65, "bm25": 0.25, "euclidean": 0.10},
-    ("natural_language", "medium"):  {"cosine": 0.50, "bm25": 0.15, "mahalanobis": 0.25, "euclidean": 0.10},
-    ("natural_language", "dense"):   {"cosine": 0.35, "bm25": 0.10, "mahalanobis": 0.45, "euclidean": 0.10},
-    ("code", "sparse"):             {"cosine": 0.55, "bm25": 0.35, "euclidean": 0.10},
-    ("code", "medium"):             {"cosine": 0.50, "bm25": 0.30, "mahalanobis": 0.10, "euclidean": 0.10},
-    ("code", "dense"):              {"cosine": 0.40, "bm25": 0.25, "mahalanobis": 0.25, "euclidean": 0.10},
-    ("structured", "sparse"):       {"bm25": 0.50, "cosine": 0.40, "euclidean": 0.10},
-    ("structured", "medium"):       {"bm25": 0.45, "cosine": 0.35, "mahalanobis": 0.10, "euclidean": 0.10},
-    ("structured", "dense"):        {"bm25": 0.40, "cosine": 0.25, "mahalanobis": 0.25, "euclidean": 0.10},
+    ("keyword", "sparse"): {"cosine": 0.50, "bm25": 0.40, "euclidean": 0.10},
+    ("keyword", "medium"): {"cosine": 0.45, "bm25": 0.30, "mahalanobis": 0.15, "euclidean": 0.10},
+    ("keyword", "dense"): {"cosine": 0.30, "bm25": 0.20, "mahalanobis": 0.40, "euclidean": 0.10},
+    ("natural_language", "sparse"): {"cosine": 0.65, "bm25": 0.25, "euclidean": 0.10},
+    ("natural_language", "medium"): {
+        "cosine": 0.50,
+        "bm25": 0.15,
+        "mahalanobis": 0.25,
+        "euclidean": 0.10,
+    },
+    ("natural_language", "dense"): {
+        "cosine": 0.35,
+        "bm25": 0.10,
+        "mahalanobis": 0.45,
+        "euclidean": 0.10,
+    },
+    ("code", "sparse"): {"cosine": 0.55, "bm25": 0.35, "euclidean": 0.10},
+    ("code", "medium"): {"cosine": 0.50, "bm25": 0.30, "mahalanobis": 0.10, "euclidean": 0.10},
+    ("code", "dense"): {"cosine": 0.40, "bm25": 0.25, "mahalanobis": 0.25, "euclidean": 0.10},
+    ("structured", "sparse"): {"bm25": 0.50, "cosine": 0.40, "euclidean": 0.10},
+    ("structured", "medium"): {
+        "bm25": 0.45,
+        "cosine": 0.35,
+        "mahalanobis": 0.10,
+        "euclidean": 0.10,
+    },
+    ("structured", "dense"): {"bm25": 0.40, "cosine": 0.25, "mahalanobis": 0.25, "euclidean": 0.10},
 }
 
 # ── Thresholds ───────────────────────────────────────────────────────────────
@@ -135,9 +150,7 @@ class HeuristicRouter(BaseRouter):
 
         return weights
 
-    def _adjust_for_entropy(
-        self, weights: dict[str, float], entropy: float
-    ) -> dict[str, float]:
+    def _adjust_for_entropy(self, weights: dict[str, float], entropy: float) -> dict[str, float]:
         """Adjust weights based on query entropy.
 
         If entropy is high (flat scores across candidates), the dominant

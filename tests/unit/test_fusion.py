@@ -33,11 +33,13 @@ def _make_profiles() -> tuple:
 class TestFuse:
     def test_basic_fusion(self) -> None:
         qp, sp = _make_profiles()
-        candidates = np.array([
-            [1.0, 0.0, 0.0],
-            [0.0, 1.0, 0.0],
-            [0.5, 0.5, 0.0],
-        ])
+        candidates = np.array(
+            [
+                [1.0, 0.0, 0.0],
+                [0.0, 1.0, 0.0],
+                [0.5, 0.5, 0.0],
+            ]
+        )
         metrics = {
             "cosine": CosineMetric(),
             "euclidean": EuclideanMetric(),

@@ -13,6 +13,7 @@ import refract
 
 # ── Simulated vector database ──────────────────────────────────────────────
 
+
 class MockVectorDB:
     """Simulates a vector database that stores and retrieves embeddings.
 
@@ -30,6 +31,7 @@ class MockVectorDB:
         """
         # Simple exhaustive search as a stand-in for ANN
         from refract.metrics.cosine import CosineMetric
+
         scores = CosineMetric().batch_score(query_vec, self.vectors)
         top_indices = np.argsort(-scores)[:top_k]
         return self.vectors[top_indices], [self.texts[i] for i in top_indices]
@@ -48,8 +50,10 @@ if __name__ == "__main__":
     norms = np.linalg.norm(corpus_vectors, axis=1, keepdims=True)
     corpus_vectors = corpus_vectors / norms
 
-    corpus_texts = [f"Document {i}: {rng.choice(['ML', 'search', 'NLP', 'code', 'data'])} topic"
-                    for i in range(n_docs)]
+    corpus_texts = [
+        f"Document {i}: {rng.choice(['ML', 'search', 'NLP', 'code', 'data'])} topic"
+        for i in range(n_docs)
+    ]
 
     # Create "vector database"
     db = MockVectorDB(corpus_vectors, corpus_texts)

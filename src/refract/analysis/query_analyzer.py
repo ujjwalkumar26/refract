@@ -17,21 +17,21 @@ from refract.types import QueryProfile
 # ── Code detection patterns ──────────────────────────────────────────────────
 
 _CODE_PATTERNS = [
-    r"\bdef\s+\w+",       # Python function
-    r"\bclass\s+\w+",     # Python/Java class
+    r"\bdef\s+\w+",  # Python function
+    r"\bclass\s+\w+",  # Python/Java class
     r"\bfunction\s+\w+",  # JavaScript function
-    r"\bimport\s+\w+",    # import statements
-    r"->",                # type annotations / arrows
-    r"::\w+",             # C++ scope / Haskell types
-    r"\{.*\}",            # braces (code blocks)
-    r";\s*$",             # trailing semicolons
-    r"\w+\.\w+\(",        # method calls like obj.method(
-    r"if\s*\(.*\)",       # if statements with parens
-    r"for\s+\w+\s+in\s+", # Python for loops
-    r"return\s+",         # return statements
-    r"#include",          # C/C++ includes
-    r"console\.log",      # JavaScript
-    r"print\(",           # Python print
+    r"\bimport\s+\w+",  # import statements
+    r"->",  # type annotations / arrows
+    r"::\w+",  # C++ scope / Haskell types
+    r"\{.*\}",  # braces (code blocks)
+    r";\s*$",  # trailing semicolons
+    r"\w+\.\w+\(",  # method calls like obj.method(
+    r"if\s*\(.*\)",  # if statements with parens
+    r"for\s+\w+\s+in\s+",  # Python for loops
+    r"return\s+",  # return statements
+    r"#include",  # C/C++ includes
+    r"console\.log",  # JavaScript
+    r"print\(",  # Python print
 ]
 
 _CODE_RE = re.compile("|".join(_CODE_PATTERNS), re.MULTILINE)
@@ -39,10 +39,10 @@ _CODE_RE = re.compile("|".join(_CODE_PATTERNS), re.MULTILINE)
 # ── Structured data patterns ─────────────────────────────────────────────────
 
 _STRUCTURED_PATTERNS = [
-    r'"\w+":\s*["\d\[\{]',   # JSON key-value
-    r"\w+:\s*\w+",           # key: value pairs
-    r"^\s*\|.*\|",           # table-like markdown
-    r"<\w+>.*</\w+>",       # XML/HTML tags
+    r'"\w+":\s*["\d\[\{]',  # JSON key-value
+    r"\w+:\s*\w+",  # key: value pairs
+    r"^\s*\|.*\|",  # table-like markdown
+    r"<\w+>.*</\w+>",  # XML/HTML tags
 ]
 
 _STRUCTURED_RE = re.compile("|".join(_STRUCTURED_PATTERNS), re.MULTILINE)

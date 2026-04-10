@@ -14,25 +14,18 @@ import refract
 knowledge_base = [
     "Our refund policy allows returns within 30 days of purchase. "
     "Items must be in original condition with tags attached.",
-
     "Shipping takes 3-5 business days for standard delivery. "
     "Express shipping is available for an additional $9.99.",
-
     "We accept Visa, Mastercard, American Express, and PayPal. "
     "All payments are processed securely through Stripe.",
-
     "Our customer support team is available Monday through Friday, "
     "9am to 6pm Eastern Time. Email support@example.com for help.",
-
     "Size exchanges are free for the first exchange. "
     "Please use the prepaid return label included in your package.",
-
     "International shipping is available to over 50 countries. "
     "Customs duties and taxes are the responsibility of the buyer.",
-
     "Gift cards can be purchased in denominations of $25, $50, and $100. "
     "They never expire and can be used for any product.",
-
     "We offer a price match guarantee within 14 days of purchase. "
     "Show us the lower price and we'll refund the difference.",
 ]
@@ -57,7 +50,7 @@ def retrieve(query: str, top_k: int = 3) -> list[str]:
 
 def format_context(docs: list[str]) -> str:
     """Format retrieved documents as context for an LLM."""
-    return "\n\n".join(f"[{i+1}] {doc}" for i, doc in enumerate(docs))
+    return "\n\n".join(f"[{i + 1}] {doc}" for i, doc in enumerate(docs))
 
 
 # ── Demo ────────────────────────────────────────────────────────────────────

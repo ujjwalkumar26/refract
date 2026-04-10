@@ -34,9 +34,7 @@ class TestDetectQueryType:
         assert result == "natural_language"
 
     def test_natural_language_long(self) -> None:
-        result = _detect_query_type(
-            "what are the philosophical implications of determinism"
-        )
+        result = _detect_query_type("what are the philosophical implications of determinism")
         assert result == "natural_language"
 
     def test_empty_string(self) -> None:
@@ -80,7 +78,9 @@ class TestAnalyzeQuery:
         assert qp.query_type == "natural_language"
         assert qp.embedding_norm > 0.0
 
-    def test_with_candidates(self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray) -> None:
+    def test_with_candidates(
+        self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray
+    ) -> None:
         qp = analyze_query(
             query_text="how to sort a list",
             query_vector=sample_query_vec,

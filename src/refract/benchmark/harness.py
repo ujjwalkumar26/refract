@@ -103,10 +103,11 @@ class BenchmarkHarness:
             corpus_vecs = embedder.embed(ds.corpus).astype(np.float64)
         else:
             from refract.search import _build_tfidf_vectors
+
             all_texts = ds.corpus + ds.queries
             all_vecs = _build_tfidf_vectors(all_texts)
             corpus_vecs = all_vecs[: len(ds.corpus)]
-            query_vecs_tfidf = all_vecs[len(ds.corpus):]
+            query_vecs_tfidf = all_vecs[len(ds.corpus) :]
 
         # Embed queries
         if embedder is not None:
@@ -223,6 +224,7 @@ class BenchmarkHarness:
             all_mrr.append(mrr(retrieved, relevant))
 
         n_queries = len(all_recall_1)
+
         def avg(vals):
             return sum(vals) / len(vals) if vals else 0.0
 

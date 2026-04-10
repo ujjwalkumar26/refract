@@ -84,9 +84,7 @@ class BeirDataset:
             ImportError: If datasets library is not installed.
         """
         if name not in self.AVAILABLE:
-            raise ValueError(
-                f"Dataset {name!r} not available. Choose from: {self.AVAILABLE}"
-            )
+            raise ValueError(f"Dataset {name!r} not available. Choose from: {self.AVAILABLE}")
 
         if importlib.util.find_spec("datasets") is None:
             raise ImportError(

@@ -63,7 +63,9 @@ class TestSearchVectorCorpus:
         assert results[0].text is None  # No text for vector-only search
         assert results[0].score > 0
 
-    def test_vector_provenance(self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray) -> None:
+    def test_vector_provenance(
+        self, sample_query_vec: np.ndarray, sample_vectors: np.ndarray
+    ) -> None:
         results = refract.search(sample_query_vec, sample_vectors)
         prov = results[0].provenance
         assert prov is not None

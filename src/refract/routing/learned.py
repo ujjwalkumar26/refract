@@ -20,6 +20,7 @@ def _try_import_torch() -> Any:
     """Lazily import torch with a helpful error message."""
     try:
         import torch
+
         return torch
     except ImportError:
         raise ImportError(
@@ -30,9 +31,7 @@ def _try_import_torch() -> Any:
         ) from None
 
 
-def _profile_to_features(
-    query_profile: QueryProfile, space_profile: SpaceProfile
-) -> list[float]:
+def _profile_to_features(query_profile: QueryProfile, space_profile: SpaceProfile) -> list[float]:
     """Convert profiles to a flat feature vector.
 
     Features:

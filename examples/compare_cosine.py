@@ -61,7 +61,11 @@ if __name__ == "__main__":
             c_score, c_text = cosine_results[i]
             r_result = refract_results[i]
             c_preview = c_text[:35] + "..." if len(c_text) > 35 else c_text
-            r_preview = (r_result.text or "")[:35] + "..." if len(r_result.text or "") > 35 else r_result.text
+            r_preview = (
+                (r_result.text or "")[:35] + "..."
+                if len(r_result.text or "") > 35
+                else r_result.text
+            )
             print(f"  {c_score:.3f} {c_preview:35s}  {r_result.score:.3f} {r_preview}")
 
         # Show metric breakdown for refract's top result
@@ -69,7 +73,9 @@ if __name__ == "__main__":
         print(f"\n  refract breakdown (top result):")
         print(f"    Query type: {prov.query_type}, Density: {prov.space_density}")
         for ms in prov.metric_scores:
-            print(f"    {ms.metric_name:12s}: score={ms.raw_score:.3f} x weight={ms.weight:.2f} = {ms.weighted_score:.3f}")
+            print(
+                f"    {ms.metric_name:12s}: score={ms.raw_score:.3f} x weight={ms.weight:.2f} = {ms.weighted_score:.3f}"
+            )
 
     print("\n" + "=" * 70)
     print("Note: refract dynamically weights metrics based on query type and space geometry.")

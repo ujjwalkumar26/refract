@@ -70,9 +70,7 @@ class MetricRegistry:
         metric = self._metrics.get(name)
         if metric is None:
             available = ", ".join(sorted(self._metrics.keys()))
-            raise KeyError(
-                f"Metric {name!r} not found. Available metrics: {available}"
-            )
+            raise KeyError(f"Metric {name!r} not found. Available metrics: {available}")
         return metric
 
     def list_available(self) -> list[str]:

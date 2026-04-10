@@ -33,10 +33,8 @@ if __name__ == "__main__":
     queries = [
         # This should be detected as "code"
         "def sort_list(arr) -> list:",
-
         # This should be "keyword"
         "sort list python",
-
         # This should be "natural_language"
         "How can I iterate through a list and transform each element?",
     ]

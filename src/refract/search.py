@@ -352,7 +352,7 @@ def search_batch(
             all_texts = list(corpus_texts or []) + queries
             all_vecs = _build_tfidf_vectors(all_texts)
             corpus_vecs_new = all_vecs[: len(corpus_texts or [])]
-            query_vecs = all_vecs[len(corpus_texts or []):]
+            query_vecs = all_vecs[len(corpus_texts or []) :]
             # Update corpus vecs to be in same TF-IDF space
             corpus_vecs = corpus_vecs_new
             # Re-fit metrics with new vectors

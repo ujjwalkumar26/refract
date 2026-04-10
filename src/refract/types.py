@@ -146,8 +146,7 @@ class Provenance:
 
     def __repr__(self) -> str:
         metrics_str = ", ".join(
-            f"{m.metric_name}={m.raw_score:.3f}x{m.weight:.2f}"
-            for m in self.metric_scores
+            f"{m.metric_name}={m.raw_score:.3f}x{m.weight:.2f}" for m in self.metric_scores
         )
         return (
             f"Provenance(score={self.final_score:.3f}, "
@@ -180,10 +179,7 @@ class SearchResult:
         text_preview = None
         if self.text is not None:
             text_preview = self.text[:60] + "..." if len(self.text) > 60 else self.text
-        return (
-            f"SearchResult(idx={self.index}, score={self.score:.3f}, "
-            f"text={text_preview!r})"
-        )
+        return f"SearchResult(idx={self.index}, score={self.score:.3f}, text={text_preview!r})"
 
     def __lt__(self, other: SearchResult) -> bool:
         """Enable sorting by score (descending)."""

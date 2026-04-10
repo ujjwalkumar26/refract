@@ -23,10 +23,7 @@ if __name__ == "__main__":
 
     # Build a CustomDataset with relevance judgments
     queries = [q["query"] for q in sample_queries]
-    relevance = {
-        i: set(q["expected_relevant"])
-        for i, q in enumerate(sample_queries)
-    }
+    relevance = {i: set(q["expected_relevant"]) for i, q in enumerate(sample_queries)}
 
     dataset = CustomDataset(
         name="mini_corpus",
@@ -47,7 +44,9 @@ if __name__ == "__main__":
     print("refract Benchmark Results")
     print("=" * 70)
     print()
-    print(f"{'Method':<20s} {'NDCG@10':>8s} {'R@1':>6s} {'R@5':>6s} {'R@10':>6s} {'MRR':>6s} {'Latency':>10s}")
+    print(
+        f"{'Method':<20s} {'NDCG@10':>8s} {'R@1':>6s} {'R@5':>6s} {'R@10':>6s} {'MRR':>6s} {'Latency':>10s}"
+    )
     print("-" * 70)
 
     for r in results:
