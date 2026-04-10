@@ -116,6 +116,7 @@ class BM25Metric(BaseMetric):
             return np.zeros(len(self._corpus_texts or []), dtype=np.float64)
 
         import typing
+
         scores = typing.cast("typing.Any", self._bm25).get_scores(query_tokens)  # type: ignore
         scores = np.array(scores, dtype=np.float64)
 
