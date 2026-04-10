@@ -55,7 +55,7 @@ class SentenceTransformerEmbedder(BaseEmbedder):
             normalize_embeddings=True,
             show_progress_bar=False,
         )
-        return np.array(embeddings, dtype=np.float64)
+        return np.array(embeddings, dtype=np.float64)  # type: ignore[no-any-return]
 
     def __repr__(self) -> str:
         return f"SentenceTransformerEmbedder(model={self.model_name!r})"

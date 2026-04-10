@@ -62,4 +62,4 @@ class CosineMetric(BaseMetric):
         # Zero out where candidate norm was zero
         cos_sim = np.where(norms_c < 1e-12, 0.0, cos_sim)
         # Map from [-1, 1] to [0, 1]
-        return np.clip((cos_sim + 1.0) / 2.0, 0.0, 1.0).astype(np.float64)
+        return np.clip((cos_sim + 1.0) / 2.0, 0.0, 1.0).astype(np.float64)  # type: ignore[no-any-return]

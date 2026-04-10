@@ -67,7 +67,7 @@ class BaseMetric(ABC):
         Returns:
             Array of shape ``(n,)`` with similarity scores.
         """
-        return np.array(
+        return np.array(  # type: ignore[no-any-return]
             [self.score(query_vec, c) for c in candidates],
             dtype=np.float64,
         )

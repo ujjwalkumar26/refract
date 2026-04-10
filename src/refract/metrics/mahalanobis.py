@@ -96,7 +96,7 @@ class MahalanobisMetric(BaseMetric):
         dist_sq = float(diff @ self._cov_inv @ diff)
         # Clamp negative values from numerical noise
         dist = np.sqrt(max(dist_sq, 0.0))
-        return 1.0 / (1.0 + dist)
+        return 1.0 / (1.0 + dist)  # type: ignore[no-any-return]
 
     def batch_score(self, query_vec: np.ndarray, candidates: np.ndarray) -> np.ndarray:
         """Vectorized Mahalanobis similarity against all candidates.
@@ -122,4 +122,4 @@ class MahalanobisMetric(BaseMetric):
         dists_sq = np.einsum("ij,ij->i", transformed, diffs)
         # Clamp numerical noise
         dists = np.sqrt(np.maximum(dists_sq, 0.0))
-        return (1.0 / (1.0 + dists)).astype(np.float64)
+        return (1.0 / (1.0 + dists)).astype(np.float64)  # type: ignore[no-any-return]

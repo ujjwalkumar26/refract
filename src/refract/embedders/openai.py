@@ -70,14 +70,14 @@ class OpenAIEmbedder(BaseEmbedder):
             batch_embeddings = [item.embedding for item in response.data]
             all_embeddings.extend(batch_embeddings)
 
-        vectors = np.array(all_embeddings, dtype=np.float64)
+        vectors = np.array(all_embeddings, dtype=np.float64)  # type: ignore[assignment]
 
         # L2 normalize
         norms = np.linalg.norm(vectors, axis=1, keepdims=True)
         norms = np.where(norms < 1e-12, 1.0, norms)
         vectors = vectors / norms
 
-        return vectors
+        return vectors  # type: ignore[no-any-return]
 
     def __repr__(self) -> str:
         return f"OpenAIEmbedder(model={self.model!r})"

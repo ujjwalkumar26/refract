@@ -47,4 +47,4 @@ class EuclideanMetric(BaseMetric):
         """
         diffs = candidates - query_vec[np.newaxis, :]
         dists = np.linalg.norm(diffs, axis=1)
-        return (1.0 / (1.0 + dists)).astype(np.float64)
+        return (1.0 / (1.0 + dists)).astype(np.float64)  # type: ignore[no-any-return]

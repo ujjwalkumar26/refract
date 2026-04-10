@@ -107,7 +107,7 @@ def _compute_entropy(scores: np.ndarray) -> float:
     probs = softmax(scores)
     # Avoid log(0)
     probs = np.clip(probs, 1e-12, 1.0)
-    entropy = -np.sum(probs * np.log(probs))
+    entropy: float = float(-np.sum(probs * np.log(probs)))
     return float(entropy)
 
 

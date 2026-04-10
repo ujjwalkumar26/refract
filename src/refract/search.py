@@ -62,7 +62,7 @@ def _build_tfidf_vectors(texts: list[str], dim: int = 128) -> np.ndarray:
     norms = np.where(norms < 1e-12, 1.0, norms)
     vectors = vectors / norms
 
-    return vectors.astype(np.float64)
+    return np.array(vectors, dtype=np.float64)  # type: ignore[no-any-return]
 
 
 def _resolve_metrics(

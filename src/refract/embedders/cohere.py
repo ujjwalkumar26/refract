@@ -75,7 +75,7 @@ class CohereEmbedder(BaseEmbedder):
         norms = np.where(norms < 1e-12, 1.0, norms)
         vectors = vectors / norms
 
-        return vectors
+        return vectors  # type: ignore[no-any-return]
 
     def embed_one(self, text: str) -> np.ndarray:
         """Embed a single query text.

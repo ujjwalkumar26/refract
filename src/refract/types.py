@@ -13,7 +13,7 @@ from typing import Any, Literal, Union
 import numpy as np
 
 
-@dataclasses.dataclass(frozen=True, slots=True)
+@dataclasses.dataclass(frozen=True)
 class QueryProfile:
     """Profile of a query, computed by the query analyzer.
 
@@ -49,7 +49,7 @@ class QueryProfile:
         )
 
 
-@dataclasses.dataclass(frozen=True, slots=True)
+@dataclasses.dataclass(frozen=True)
 class SpaceProfile:
     """Profile of the candidate search space.
 
@@ -82,7 +82,7 @@ class SpaceProfile:
         )
 
 
-@dataclasses.dataclass(frozen=True, slots=True)
+@dataclasses.dataclass(frozen=True)
 class MetricScore:
     """Score contribution from a single similarity metric.
 
@@ -106,7 +106,7 @@ class MetricScore:
         )
 
 
-@dataclasses.dataclass(frozen=True, slots=True)
+@dataclasses.dataclass(frozen=True)
 class Provenance:
     """Explainability trace for a single search result.
 
@@ -157,7 +157,7 @@ class Provenance:
         )
 
 
-@dataclasses.dataclass(slots=True)
+@dataclasses.dataclass()
 class SearchResult:
     """A single search result with score and provenance.
 

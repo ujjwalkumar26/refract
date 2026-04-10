@@ -115,14 +115,15 @@ class BM25Metric(BaseMetric):
         if not query_tokens:
             return np.zeros(len(self._corpus_texts or []), dtype=np.float64)
 
-        scores = self._bm25.get_scores(query_tokens)  # type: ignore[union-attr]
+        import typing
+        scores = typing.cast(typing.Any, self._bm25).get_scores(query_tokens)  # type: ignore
         scores = np.array(scores, dtype=np.float64)
 
         # Normalize to [0, 1]
         max_score = scores.max()
         if max_score > 1e-12:
             scores = scores / max_score
-        return scores
+        return scores  # type: ignore[no-any-return]
 
     def batch_score(self, query_vec: np.ndarray, candidates: np.ndarray) -> np.ndarray:
         """Fallback for vector-based interface. Returns zeros.
