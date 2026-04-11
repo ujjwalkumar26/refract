@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import dataclasses
 import pickle
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 import numpy as np
 from sklearn.neural_network import MLPRegressor
@@ -20,6 +20,8 @@ from refract.search import _build_tfidf_vectors, _resolve_metrics
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
+
+    from numpy.typing import NDArray
 
     from refract.embedders.base import BaseEmbedder
     from refract.metrics.base import BaseMetric
@@ -49,14 +51,17 @@ def _profile_to_features(query_profile: QueryProfile, space_profile: SpaceProfil
     ]
 
 
-def _normalize_weights(weights: Sequence[float]) -> np.ndarray:
+def _normalize_weights(weights: Sequence[float]) -> NDArray[np.float64]:
     """Project a raw vector onto the probability simplex."""
-    arr = np.asarray(weights, dtype=np.float64)
-    arr = np.clip(arr, 0.0, None)
+    arr = cast("NDArray[np.float64]", np.asarray(weights, dtype=np.float64))
+    arr = cast("NDArray[np.float64]", np.clip(arr, 0.0, None))
     total = float(arr.sum())
     if total < 1e-12:
-        return np.asarray(np.ones_like(arr) / max(len(arr), 1), dtype=np.float64)
-    return np.asarray(arr / total, dtype=np.float64)
+        return cast(
+            "NDArray[np.float64]",
+            np.asarray(np.ones_like(arr) / max(len(arr), 1), dtype=np.float64),
+        )
+    return cast("NDArray[np.float64]", np.asarray(arr / total, dtype=np.float64))
 
 
 @dataclasses.dataclass(frozen=True)
@@ -503,11 +508,14 @@ class LearnedRouter(BaseRouter):
         utilities: Sequence[float],
         *,
         temperature: float,
-    ) -> np.ndarray:
-        raw = np.asarray(utilities, dtype=np.float64)
+    ) -> NDArray[np.float64]:
+        raw = cast("NDArray[np.float64]", np.asarray(utilities, dtype=np.float64))
         if np.all(raw <= 1e-12):
-            return np.asarray(
-                np.ones(len(raw), dtype=np.float64) / max(len(raw), 1), dtype=np.float64
+            return cast(
+                "NDArray[np.float64]",
+                np.asarray(
+                    np.ones(len(raw), dtype=np.float64) / max(len(raw), 1), dtype=np.float64
+                ),
             )
 
         scaled = raw / max(temperature, 1e-6)
