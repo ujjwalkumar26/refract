@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-04-12
+
+### Added
+
+- Relevance-driven `LearnedRouter.fit_from_relevance()` training workflow
+- `LearnedRouter.evaluate_from_relevance()` with per-metric quality reporting
+- `LearnedRouterEvaluation` summary type
+- Learned-router save/load support for persisted routing models
+- Examples for training and evaluating learned routing
+- Unit coverage for learned-router training, routing, and persistence
+
+### Changed
+
+- Exported learned-router APIs from `refract` and `refract.routing`
+- Updated README documentation for learned-router training, usage, and evaluation
+- Removed the stale PyTorch-based learned extra in favor of the sklearn-based implementation
+
 ## [0.1.0] — 2026-04-11
 
 ### Added
@@ -26,5 +43,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive test suite (unit + integration)
 - Examples: quickstart, RAG pipeline, code search, custom metric, benchmarks
 
-[Unreleased]: https://github.com/ujjwalkumar26/refract/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/ujjwalkumar26/refract/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/ujjwalkumar26/refract/releases/tag/v0.2.0
 [0.1.0]: https://github.com/ujjwalkumar26/refract/releases/tag/v0.1.0
