@@ -34,6 +34,7 @@ from refract.metrics.registry import DEFAULT_REGISTRY, MetricRegistry
 from refract.routing.base import BaseRouter
 from refract.routing.composite import CompositeRouter
 from refract.routing.heuristic import HeuristicRouter
+from refract.routing.learned import LearnedRouter, LearnedRouterEvaluation
 from refract.search import search, search_batch
 from refract.types import (
     MetricScore,
@@ -59,6 +60,8 @@ __all__ = [
     "CosineMetric",
     "EuclideanMetric",
     "HeuristicRouter",
+    "LearnedRouter",
+    "LearnedRouterEvaluation",
     "MahalanobisMetric",
     "MetricRegistry",
     "MetricScore",

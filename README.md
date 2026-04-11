@@ -197,6 +197,93 @@ results = refract.search(query, docs, router=MyRouter())
 
 ---
 
+## Train a learned router from relevance feedback
+
+Use your own judged queries to learn when each metric should matter more:
+
+```python
+from refract.routing import LearnedRouter
+
+queries = [
+    "how to sort a list in Python",
+    "neural network architecture",
+    "vector similarity embedding",
+]
+relevance = {
+    0: {0, 16},
+    1: {1, 8, 15},
+    2: {3, 11, 19},
+}
+
+router = LearnedRouter(["cosine", "bm25", "mahalanobis", "euclidean"])
+report = router.fit_from_relevance(
+    queries=queries,
+    corpus=docs,
+    relevance=relevance,
+    top_k=5,
+)
+
+print(report)
+print(report.metric_quality)
+```
+
+`fit_from_relevance()` automatically:
+
+- Builds query + space features
+- Measures how well each metric ranks the relevant documents
+- Converts those per-query metric scores into target routing weights
+- Trains a small gating network to predict those weights later
+
+---
+
+## Use a trained router
+
+```python
+from refract.routing import LearnedRouter
+
+router.save("learned_router.pkl")
+trained_router = LearnedRouter.load("learned_router.pkl")
+
+results = refract.search(
+    "how do I sort things in Python",
+    docs,
+    router=trained_router,
+)
+```
+
+---
+
+## Evaluate learning
+
+You can evaluate the learned router directly, then benchmark it against heuristic routing:
+
+```python
+evaluation = trained_router.evaluate_from_relevance(
+    queries=queries,
+    corpus=docs,
+    relevance=relevance,
+    top_k=5,
+)
+print(evaluation.router_ndcg_at_k, evaluation.oracle_ndcg_at_k)
+```
+
+```python
+from refract.benchmark import BenchmarkHarness, CustomDataset
+
+dataset = CustomDataset(
+    name="my_eval",
+    queries=queries,
+    corpus=docs,
+    relevance=relevance,
+)
+
+harness = BenchmarkHarness()
+heuristic = harness.run(dataset, compare_cosine_baseline=False)[0]
+learned = harness.run(dataset, router=trained_router, compare_cosine_baseline=False)[0]
+```
+
+---
+
 ## Use as a RAG retrieval step
 
 ```python
@@ -240,7 +327,7 @@ for r in results:
 | Mode | When to use | Training required |
 |---|---|---|
 | `HeuristicRouter` (default) | Always -- good out of the box | No |
-| `LearnedRouter` | When you have relevance feedback data | Yes |
+| `LearnedRouter` | When you have relevance feedback data and want adaptive routing | Yes |
 | `CompositeRouter` | Blend multiple routers | Depends |
 | `BaseRouter` subclass | Full custom control | You decide |
 
@@ -292,6 +379,8 @@ src/refract/
 | [`custom_metric.py`](examples/custom_metric.py) | Plug in your own metric |
 | [`compare_cosine.py`](examples/compare_cosine.py) | Side-by-side vs vanilla cosine |
 | [`benchmark_demo.py`](examples/benchmark_demo.py) | Evaluation harness demo |
+| [`train_learned_router.py`](examples/train_learned_router.py) | Train a learned router from judged queries |
+| [`evaluate_learned_router.py`](examples/evaluate_learned_router.py) | Compare heuristic vs learned routing |
 | [`vector_db_integration.py`](examples/vector_db_integration.py) | FAISS/Qdrant integration pattern |
 
 ---
@@ -304,8 +393,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
 
 ## Roadmap
 
-- `0.1.0` -- Core API, heuristic router, cosine / euclidean / mahalanobis / BM25 **(you are here)**
-- `0.2.0` -- Learned router with PyTorch gating network
+- `0.1.0` -- Core API, heuristic router, cosine / euclidean / mahalanobis / BM25
+- `0.2.0` -- Learned router with relevance-driven training and evaluation **(you are here)**
 - `0.3.0` -- BEIR benchmark harness with published results
 - `1.0.0` -- Stable API, comprehensive benchmarks, documentation site
 
